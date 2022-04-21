@@ -1,0 +1,26 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+        maven {
+            url = "https://maven.pkg.github.com/ahmed-alhahsimi-sedra/sedracheck-android"
+            credentials {
+                username = "your usernmae"
+                password = "your access token"
+            }
+        }
+    }
+}
+rootProject.name = "SedraCheckSample"
+include ':app'

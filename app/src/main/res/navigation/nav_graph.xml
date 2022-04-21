@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/landingFragment">
+
+    <fragment
+        android:id="@+id/landingFragment"
+        android:name="com.sedra.check.sample.fragments.LandingFragment"
+        android:label="fragment_landing"
+        tools:layout="@layout/fragment_landing">
+        <action
+            android:id="@+id/action_landingFragment_to_verifyMobileNumberFragment"
+            app:destination="@id/verifyMobileNumberFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"  />
+    </fragment>
+    <fragment
+        android:id="@+id/verifyMobileNumberFragment"
+        android:name="com.sedra.check.sample.fragments.VerifyMobileNumberFragment"
+        android:label="fragment_verify_mobile_number"
+        tools:layout="@layout/fragment_verify_mobile_number">
+        <action
+            android:id="@+id/action_verifyMobileNumberFragment_to_landingFragment"
+            app:popUpTo="@id/landingFragment" />
+        <action
+            android:id="@+id/action_verifyMobileNumberFragment_to_otpFragment"
+            app:destination="@id/otpFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/otpFragment"
+        android:name="com.sedra.check.sample.fragments.OtpFragment"
+        android:label="OtpFragment"
+        tools:layout="@layout/fragment_otp">
+        <action
+            android:id="@+id/action_otpFragment_to_mobileVerificationSuccessfulFragment"
+            app:destination="@id/mobileVerificationSuccessfulFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_otpFragment_to_verifyMobileNumberFragment2"
+            app:popUpTo="@id/verifyMobileNumberFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mobileVerificationSuccessfulFragment"
+        android:name="com.sedra.check.sample.fragments.MobileVerificationSuccessfulFragment"
+        android:label="MobileVerificationSuccessfulFragment"
+        tools:layout="@layout/fragment_mobile_verification_successful">
+        <action
+            android:id="@+id/action_mobileVerificationSuccessfulFragment_to_selectNationalityFragment"
+            app:destination="@id/selectNationalityFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_mobileVerificationSuccessfulFragment_to_verifyMobileNumberFragment"
+            app:popUpTo="@id/verifyMobileNumberFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectNationalityFragment"
+        android:name="com.sedra.check.sample.fragments.SelectNationalityFragment"
+        android:label="SelectNationalityFragment"
+        tools:layout="@layout/fragment_select_nationality">
+        <action
+            android:id="@+id/action_selectNationalityFragment_to_selectIdTypeFragment"
+            app:destination="@id/selectIdTypeFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_selectNationalityFragment_to_mobileVerificationSuccessfulFragment"
+            app:popUpTo="@id/mobileVerificationSuccessfulFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectIdTypeFragment"
+        android:name="com.sedra.check.sample.fragments.SelectIdTypeFragment"
+        android:label="SelectIdTypeFragment"
+        tools:layout="@layout/fragment_select_id_type">
+        <action
+            android:id="@+id/action_selectIdTypeFragment_to_selfieInstructionsFragment"
+            app:destination="@id/selfieInstructionsFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_selectIdTypeFragment_to_selectNationalityFragment"
+            app:popUpTo="@id/selectNationalityFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selfieInstructionsFragment"
+        android:name="com.sedra.check.sample.fragments.SelfieInstructionsFragment"
+        android:label="SelfieInstructionsFragment"
+        tools:layout="@layout/fragment_selfie_instructions">
+        <action
+            android:id="@+id/action_selfieInstructionsFragment_to_imagesVerificationSuccessfulFragment"
+            app:destination="@id/imagesVerificationSuccessfulFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_selfieInstructionsFragment_to_selectIdTypeFragment"
+            app:popUpTo="@id/selectIdTypeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/imagesVerificationSuccessfulFragment"
+        android:name="com.sedra.check.sample.fragments.ImagesVerificationSuccessfulFragment"
+        android:label="ImagesVerificationSuccessfulFragment"
+        tools:layout="@layout/fragment_images_verification_successful">
+        <action
+            android:id="@+id/action_imagesVerificationSuccessfulFragment_to_kycFormFragment"
+            app:destination="@id/kycFormFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_imagesVerificationSuccessfulFragment_to_selfieInstructionsFragment"
+            app:popUpTo="@id/selfieInstructionsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/kycFormFragment"
+        android:name="com.sedra.check.sample.fragments.KycFormFragment"
+        android:label="kycFormFragment"
+        tools:layout="@layout/fragment_kyc_form">
+        <action
+            android:id="@+id/action_kycFormFragment_to_imagesVerificationSuccessfulFragment"
+            app:popUpTo="@id/imagesVerificationSuccessfulFragment" />
+        <action
+            android:id="@+id/action_kycFormFragment_to_customerIdFragment"
+            app:destination="@id/customerIdFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/kycSubissionSuccessfulFragment"
+        android:name="com.sedra.check.sample.fragments.KycSubmissionSuccessfulFragment"
+        android:label="KycSubissionSuccessfulFragment"
+        tools:layout="@layout/fragment_kyc_submission_successful" >
+        <action
+            android:id="@+id/action_kycSubissionSuccessfulFragment_to_landingFragment"
+            app:popUpTo="@id/landingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/customerIdFragment"
+        android:name="com.sedra.check.sample.fragments.CustomerIdFragment"
+        android:label="CustomerIdFragment"
+        tools:layout="@layout/fragment_customer_id">
+        <action
+            android:id="@+id/action_customerIdFragment_to_kycSubissionSuccessfulFragment"
+            app:destination="@id/kycSubissionSuccessfulFragment" />
+    </fragment>
+</navigation>

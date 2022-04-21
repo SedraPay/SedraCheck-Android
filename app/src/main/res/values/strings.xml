@@ -1,0 +1,10 @@
+<resources>
+    <string name="btn_create_account">Start</string>
+    <string name="btn_verify">Verify</string>
+
+    <string name="title_verify_mobile">Verify your mobile number</string>
+
+    <string name="hint_enter_mobile_number">Enter your mobile number</string>
+    <string name="hint_mobile_format">07XXXXXXXX</string>
+
+</resources>
