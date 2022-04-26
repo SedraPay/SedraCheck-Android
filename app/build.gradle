@@ -79,5 +79,5 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
 
     //SedraCheck
-    implementation "com.sedrapay:sedra-check:1.0.0-rc01"
+    implementation "com.sedrapay:sedra-check:1.0.0"
 }

@@ -72,18 +72,29 @@ class KycFormFragment : Fragment() {
             )
 
             btnSubmit.setOnClickListener {
-                binding.btnSubmit.visibility = View.GONE
-                binding.progressIndicator.visibility = View.VISIBLE
-                val screeningRequestModel = ScreeningRequestModel()
-                val namePart = binding.etFullEnglishName.text.toString().split(' ')
-                screeningRequestModel.firstName = namePart.first()
-                screeningRequestModel.lastName = namePart.last()
-                model.checkScreening(screeningRequestModel)
+
+                var isValid = true
+
+                if (binding.etFullEnglishName.text.toString().isEmpty()) {
+                    isValid = false
+                    binding.tilFullEnglishName.error = "Full name can't be empty"
+                } else if (binding.etFullEnglishName.text.toString().split(' ').size < 2) {
+                    isValid = false
+                    binding.tilFullEnglishName.error = "Full name must be 2 parts at least"
+                }
+
+                if (isValid) {
+                    binding.tilFullEnglishName.error = null
+                    binding.btnSubmit.visibility = View.GONE
+                    binding.progressIndicator.visibility = View.VISIBLE
+                    val screeningRequestModel = ScreeningRequestModel()
+                    val namePart = binding.etFullEnglishName.text.toString().split(' ')
+                    screeningRequestModel.firstName = namePart.first()
+                    screeningRequestModel.lastName = namePart.last()
+                    model.checkScreening(screeningRequestModel)
+                }
             }
         }
-
-
-
 
         with(model) {
             getScreeningCheck().observe(viewLifecycleOwner) {
