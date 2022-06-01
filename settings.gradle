@@ -15,10 +15,6 @@ dependencyResolutionManagement {
         maven { url 'https://jitpack.io' }
         maven {
             url = "https://maven.pkg.github.com/sedrapay/sedracheck-android"
-            credentials {
-                username = "your usernmae"
-                password = "your access token"
-            }
         }
     }
 }

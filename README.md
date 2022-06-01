@@ -29,10 +29,37 @@ be added to your app’s manifest
 
 ## Installation
 
-The latest AAR for SedraCheck is provided within the example in this repository. You should download
-and add it to your own project as
-described [here](https://developer.android.com/studio/projects/android-library#psd-add-aar-jar-dependency)
-.
+To install the SDK you need to import it in your application's gradle file
+```groovy
+    implementation "com.sedrapay:sedra-check:1.0.1"
+```
+and you need to add to your build gradle the url of the github repo
+```groovy
+    repositories {
+      google()
+      mavenCentral()
+      maven { url 'https://jitpack.io' }
+      maven {
+        url = "https://maven.pkg.github.com/sedrapay/sedracheck-android"
+      }
+}
+```
+and if setting.gradle is availble, you need to add the url of the github repo in the resolution 
+management section
+
+```groovy
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+        maven {
+            url = "https://maven.pkg.github.com/sedrapay/sedracheck-android"
+        }
+    }
+}
+```
 
 The SDK is developed in Kotlin so you need to add the fowling at the top level of your gradle file:
 
