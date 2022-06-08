@@ -9,6 +9,7 @@
         <entry key="../../.gradle/caches/transforms-3/0cdada3448f147dcabb2c3dcdc27900b/transformed/sedra-check-1.0.0-beta.3/res/layout/scan_surface_view.xml" value="0.35555555555555557" />
         <entry key="app/src/main/res/layout/fragment_customer_id.xml" value="0.35555555555555557" />
         <entry key="app/src/main/res/layout/fragment_kyc_form.xml" value="0.35555555555555557" />
+        <entry key="app/src/main/res/layout/fragment_name_for_screening.xml" value="0.35555555555555557" />
         <entry key="app/src/main/res/layout/fragment_select_id_type.xml" value="0.35555555555555557" />
       </map>
     </option>

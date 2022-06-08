@@ -13,9 +13,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
-        maven {
-            url = "https://maven.pkg.github.com/sedrapay/sedracheck-android"
-        }
+        maven { url 'https://maven.pkg.github.com/sedrapay/sedracheck-android' }
     }
 }
 rootProject.name = "SedraCheckSample"

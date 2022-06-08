@@ -4,8 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
@@ -13,7 +11,7 @@
         android:layout_marginStart="60dp"
         android:layout_marginTop="70dp"
         android:layout_marginEnd="60dp"
-        android:text="Scan your ID"
+        android:text="Liveness Check"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/colorPrimary"
@@ -29,6 +27,7 @@
         app:layout_constraintTop_toBottomOf="@id/title" />
 
     <LinearLayout
+        android:id="@+id/layout_instructions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -119,6 +118,41 @@ or a hat, take it off." />
 
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_sort"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:text="Choose to have the steps randomized or sorted"
+        app:layout_constraintTop_toBottomOf="@id/layout_instructions" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:checkedButton="@+id/rb_randomized"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/tv_sort">
+
+        <RadioButton
+            android:id="@+id/rb_randomized"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Randomized" />
+
+        <RadioButton
+            android:id="@+id/rb_sorted"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Sorted" />
+
+    </RadioGroup>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnTakeSelfie"

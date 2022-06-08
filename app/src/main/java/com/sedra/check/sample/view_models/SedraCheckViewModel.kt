@@ -1,5 +1,6 @@
 package com.sedra.check.sample.view_models
 
+import android.app.Activity
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,26 +18,35 @@ class SedraCheckViewModel : ViewModel() {
     //create an object of SedraCheck interface to be initialized using SedraCheckEngine.Builder below
     private var sc: SedraCheck? = null
 
-    //these LiveData objects will be used to
     private val sedraCheckJourney: MutableLiveData<String?> =
         MutableLiveData<String?>()
 
     private val sedraCheckException: MutableLiveData<SedraCheckException?> =
         MutableLiveData<SedraCheckException?>()
 
-    private val dataExtraction: MutableLiveData<DataExtractionModel> =
-        MutableLiveData<DataExtractionModel>()
+    private val dataExtraction: MutableLiveData<DataExtractionModel?> =
+        MutableLiveData<DataExtractionModel?>()
 
-    private val livenessCheck: MutableLiveData<FaceMatchResponseModel> =
-        MutableLiveData<FaceMatchResponseModel>()
+    private val livenessCheck: MutableLiveData<FaceMatchResponseModel?> =
+        MutableLiveData<FaceMatchResponseModel?>()
 
-    private val screeningCheck: MutableLiveData<ScreeningResponseModel> =
-        MutableLiveData<ScreeningResponseModel>()
+    private val screeningCheck: MutableLiveData<ScreeningResponseModel?> =
+        MutableLiveData<ScreeningResponseModel?>()
 
-    private val closeJourney: MutableLiveData<CloseJourneyResponseModel> =
-        MutableLiveData<CloseJourneyResponseModel>()
+    private val closeJourney: MutableLiveData<CloseJourneyResponseModel?> =
+        MutableLiveData<CloseJourneyResponseModel?>()
 
-    fun startJourney(subscriptionKey: String, baseUrl: String, context: Context) {
+    private val nationalitiesAndIdTypes: MutableLiveData<NationalitiesAndIdTypesModel?> =
+        MutableLiveData<NationalitiesAndIdTypesModel?>()
+
+    private var selectedNationality: Nationality? = null
+
+    var hasDocumentScanner = true
+    var hasScreening = true
+    var hasLivenessCheck = true
+    var hasCloseJourney = true
+
+    fun startJourney(subscriptionKey: String, baseUrl: String, activity: Activity) {
         //initialize SedraCheckEngine before calling any functions, and make sure to use the same
         //object, we recommend to keep it in the ViewModel and use it across your code
         sc = sc ?: SedraCheckEngine.Builder()
@@ -81,7 +91,7 @@ class SedraCheckViewModel : ViewModel() {
                     }
                 }
             },
-            context = context
+            activity = activity
         )
     }
 
@@ -134,9 +144,23 @@ class SedraCheckViewModel : ViewModel() {
                 result: CloseJourneyResponseModel?,
                 exception: SedraCheckException?
             ) {
+                //if result is null or exception is not null then handle the error accordingly
                 closeJourney.value = result ?: CloseJourneyResponseModel()
             }
         }, customerId = customerId)
+    }
+
+    fun requestNationalitiesAndIdTypes() {
+        sc?.requestNationalitiesAndIdTypes(checkCallback = object :
+            CheckCallback<NationalitiesAndIdTypesModel?> {
+            override fun onResult(
+                result: NationalitiesAndIdTypesModel?,
+                exception: SedraCheckException?
+            ) {
+                //if result is null or exception is not null then handle the error accordingly
+                nationalitiesAndIdTypes.value = result ?: NationalitiesAndIdTypesModel()
+            }
+        })
     }
 
     fun getSedraCheckException(): LiveData<SedraCheckException?> {
@@ -151,21 +175,43 @@ class SedraCheckViewModel : ViewModel() {
         return sedraCheckJourney
     }
 
-    fun getScanDoc(): LiveData<DataExtractionModel> {
+    fun getScanDoc(): LiveData<DataExtractionModel?> {
         return dataExtraction
     }
 
-    fun getLivenessCheck(): LiveData<FaceMatchResponseModel> {
+    fun getLivenessCheck(): LiveData<FaceMatchResponseModel?> {
         return livenessCheck
     }
 
-    fun getScreeningCheck(): LiveData<ScreeningResponseModel> {
+    fun getScreeningCheck(): LiveData<ScreeningResponseModel?> {
         return screeningCheck
     }
 
-    fun getCloseJourney(): LiveData<CloseJourneyResponseModel> {
+    fun getCloseJourney(): LiveData<CloseJourneyResponseModel?> {
         return closeJourney
     }
 
+    fun getNationalitiesAndIdTypes(): LiveData<NationalitiesAndIdTypesModel?> {
+        return nationalitiesAndIdTypes
+    }
+
+    fun setSelectedNationality(position: Int) {
+        selectedNationality = nationalitiesAndIdTypes.value?.nationalities?.get(position)
+    }
+
+    fun getIdTypes():ArrayList<IdType>?{
+        return selectedNationality?.idTypes
+    }
+
+    fun resetState(){
+        //reset all values to reset the state of the journey like new
+        sedraCheckJourney.value = null
+        sedraCheckException.value = null
+        dataExtraction.value = null
+        livenessCheck.value = null
+        screeningCheck.value = null
+        closeJourney.value = null
+        nationalitiesAndIdTypes.value = null
+    }
 
 }

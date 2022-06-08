@@ -8,9 +8,7 @@ buildscript {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
-        maven {
-            url = "https://maven.pkg.github.com/sedrapay/sedracheck-android"
-        }
+        maven { url 'https://maven.pkg.github.com/sedrapay/sedracheck-android' }
         flatDir {
             dirs 'libs'
         }

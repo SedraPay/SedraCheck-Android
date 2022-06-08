@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import com.sedra.check.lib.LivenessCheckResultContract
+import com.sedra.check.lib.LivenessConfiguration
 import com.sedra.check.lib.enums.FaceDetectionStep
 import com.sedra.check.sample.R
 import com.sedra.check.sample.databinding.FragmentSelfieInstructionsBinding
@@ -32,12 +33,21 @@ class SelfieInstructionsFragment : Fragment() {
         val model: SedraCheckViewModel by activityViewModels()
         model.getLivenessCheck().observe(viewLifecycleOwner) {
 
-            Navigation.findNavController(view)
-                .navigate(R.id.action_selfieInstructionsFragment_to_imagesVerificationSuccessfulFragment)
+            if(it != null) {
+                Navigation.findNavController(view)
+                    .navigate(R.id.action_selfieInstructionsFragment_to_imagesVerificationSuccessfulFragment)
 
-            binding.btnTakeSelfie.visibility = View.VISIBLE
-            binding.progressIndicator.visibility = View.GONE
+                binding.btnTakeSelfie.visibility = View.VISIBLE
+                binding.progressIndicator.visibility = View.GONE
+            }
         }
+
+        //NOTE
+        //The LivenessCheck in this SDK relies on Google Services, if you plan on publishing your
+        //app on platforms that don't have google services available, you should handle the liveness
+        //check in a different way, and just send the path of the resulting selfie image to
+        //      SedraCheck.startSelfieMatch()
+        //which will match the selfie image to the image on the person's ID document.
 
         val getLivenessCheckResult =
             registerForActivityResult(LivenessCheckResultContract()) { livenessResult ->
@@ -71,7 +81,11 @@ class SelfieInstructionsFragment : Fragment() {
 
             }
 
-            getLivenessCheckResult.launch(steps)
+            val isRandom = binding.rbRandomized.isChecked
+
+            val config = LivenessConfiguration(steps, isRandom)
+
+            getLivenessCheckResult.launch(config)
         }
 
     }
