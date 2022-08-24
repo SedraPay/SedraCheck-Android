@@ -4,21 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import com.sedra.check.lib.ScanResult
 import com.sedra.check.lib.ScannerResultContract
-import com.sedra.check.lib.enums.IdPage
-import com.sedra.check.lib.enums.IdType
-import com.sedra.check.lib.network.models.DataExtractionResponseModel
+import com.sedra.check.lib.network.models.DataExtractionModel
+import com.sedra.check.lib.network.models.IdType
 import com.sedra.check.sample.R
+import com.sedra.check.sample.adapters.IdTypesArrayAdapter
+import com.sedra.check.sample.adapters.NationalitiesArrayAdapter
 import com.sedra.check.sample.databinding.FragmentSelectIdTypeBinding
 import com.sedra.check.sample.view_models.SedraCheckViewModel
 
 class SelectIdTypeFragment : Fragment() {
-    var idType:IdType? = null
+    var idType: IdType? = null
 
     private val binding: FragmentSelectIdTypeBinding by lazy {
         FragmentSelectIdTypeBinding.inflate(
@@ -39,14 +41,17 @@ class SelectIdTypeFragment : Fragment() {
 
         val model: SedraCheckViewModel by activityViewModels()
 
-        model.getScanDoc().observe(viewLifecycleOwner) { responseModel: DataExtractionResponseModel? ->
-            if (responseModel != null) {
+        binding.spinner.adapter = IdTypesArrayAdapter(requireContext(), model.getIdTypes()!!)
+
+        model.getScanDoc().observe(viewLifecycleOwner) { scanModel: DataExtractionModel? ->
+            if (scanModel != null) {
 
                 Navigation.findNavController(view)
-                    .navigate(R.id.action_selectIdTypeFragment_to_selfieInstructionsFragment)
+                    .navigate(R.id.action_selectIdTypeFragment_to_kycFormFragment)
 
                 binding.btnNext.visibility = View.VISIBLE
                 binding.progressIndicator.visibility = View.GONE
+
 
             }
         }
@@ -58,18 +63,14 @@ class SelectIdTypeFragment : Fragment() {
                 binding.btnNext.visibility = View.GONE
                 binding.progressIndicator.visibility = View.VISIBLE
 
-                var idPage = IdPage.FRONT
-                if(idType == IdType.ID && scans.size > 0)
-                    idPage = IdPage.BACK
-
-                scans.add(ScanResult(imagePath, idType!!, idPage))
+                scans.add(ScanResult(imagePath, idType!!))
 
                 //do a check and call it again if you need to get the back side
-                if(idType == IdType.ID && scans.size < 2) {
+                if(scans.size < (idType?.numberOfImages ?: 1)) {
                     //start scanner again
                     //you can also put an intermediate screen or show a popup up dialog first, to
                     //inform your user that they will need to scan the back of their ID
-                    getScannerResult.launch(IdType.ID)
+                    getScannerResult.launch(idType)
                 }else {
                     //else send the list of paths to the view model
                     model.extractDataFromDocuments(scans)
@@ -79,19 +80,23 @@ class SelectIdTypeFragment : Fragment() {
             }
         }
 
-        binding.cardNationalId.setOnClickListener {
-            idType = IdType.ID
-            getScannerResult.launch(IdType.ID)
-        }
+        with(binding){
+            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
 
-        binding.cardPassport.setOnClickListener {
-            idType = IdType.PASSPORT
-            getScannerResult.launch(IdType.PASSPORT)
-        }
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    idType = model.getIdTypes()!![position]
+                }
+            }
 
-        binding.cardDrivingLicense.setOnClickListener {
-            idType = IdType.DrivingLicense
-            getScannerResult.launch(IdType.DrivingLicense)
+            btnNext.setOnClickListener {
+                getScannerResult.launch(idType)
+            }
         }
     }
 }

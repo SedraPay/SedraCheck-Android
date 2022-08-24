@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.sedra.check.lib.network.models.IdType
-import com.sedra.check.lib.network.models.Nationality
 import com.sedra.check.sample.R
 
 class IdTypesArrayAdapter(context: Context, var items: ArrayList<IdType>) :
@@ -24,7 +23,7 @@ class IdTypesArrayAdapter(context: Context, var items: ArrayList<IdType>) :
         if (view == null) {
             view = inflater.inflate(R.layout.spinner_item, parent, false)
         }
-        (view?.findViewById(android.R.id.text1) as TextView).text = "${getItem(position)!!.name} (${getItem(position)!!.numberOfImages} pages)"
+        (view?.findViewById(R.id.text) as TextView).text = "${getItem(position)!!.name} (${getItem(position)!!.numberOfImages} pages)"
         return view
     }
 
@@ -33,7 +32,7 @@ class IdTypesArrayAdapter(context: Context, var items: ArrayList<IdType>) :
         if (view == null) {
             view = inflater.inflate(R.layout.spinner_item, parent, false)
         }
-        (view?.findViewById(android.R.id.text1) as TextView).text = "${getItem(position)!!.name} (${getItem(position)!!.numberOfImages} pages)"
+        (view?.findViewById(R.id.text) as TextView).text = "${getItem(position)!!.name} (${getItem(position)!!.numberOfImages} pages)"
         return view
     }
 }

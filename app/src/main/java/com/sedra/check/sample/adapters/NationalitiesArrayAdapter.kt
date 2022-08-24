@@ -23,7 +23,7 @@ class NationalitiesArrayAdapter(context: Context, var items: List<Nationality>) 
         if (view == null) {
             view = inflater.inflate(R.layout.spinner_item, parent, false)
         }
-        (view?.findViewById(android.R.id.text1) as TextView).text = getItem(position)!!.name
+        (view?.findViewById(R.id.text) as TextView).text = getItem(position)!!.name
         return view
     }
 
@@ -32,7 +32,7 @@ class NationalitiesArrayAdapter(context: Context, var items: List<Nationality>) 
         if (view == null) {
             view = inflater.inflate(R.layout.spinner_item, parent, false)
         }
-        (view?.findViewById(android.R.id.text1) as TextView).text = getItem(position)!!.name
+        (view?.findViewById(R.id.text) as TextView).text = getItem(position)!!.name
         return view
     }
 }
