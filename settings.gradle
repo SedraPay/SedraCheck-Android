@@ -1,20 +1,40 @@
 pluginManagement {
+
+    Properties properties = new Properties()
+    properties.load(file('credentials.properties').newDataInputStream())
+
     repositories {
         gradlePluginPortal()
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
-        maven { url 'https://maven.pkg.github.com/sedrapay/sedracheck-android' }
+        maven {
+            url 'https://maven.pkg.github.com/sedrapay/sedracheck-android'
+            credentials {
+                username properties.getProperty('githubUsername')
+                password properties.getProperty('githubAccessToken')
+            }
+        }
     }
 }
 
 dependencyResolutionManagement {
+
+    Properties properties = new Properties()
+    properties.load(file('credentials.properties').newDataInputStream())
+
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
-        maven { url 'https://maven.pkg.github.com/sedrapay/sedracheck-android' }
+        maven {
+            url 'https://maven.pkg.github.com/sedrapay/sedracheck-android'
+            credentials {
+                username properties.getProperty('githubUsername')
+                password properties.getProperty('githubAccessToken')
+            }
+        }
     }
 }
 rootProject.name = "SedraCheckSample"

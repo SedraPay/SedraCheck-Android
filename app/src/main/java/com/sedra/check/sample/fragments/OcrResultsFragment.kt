@@ -40,8 +40,8 @@ class OcrResultsFragment : Fragment() {
             recyclerView.layoutManager = linearLayoutManager
 
             adapter = OcrResultsAdapter(
-                model.getScanDoc().value!!.extractedFields,
-                model.getScanDoc().value!!.validationResult!!.validationChecks
+                model.getScanDoc().value?.extractedFields ?: arrayListOf(),
+                model.getScanDoc().value?.validationResult?.validationChecks ?: arrayListOf()
             )
 
             recyclerView.adapter = adapter

@@ -8,14 +8,20 @@ buildscript {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
-        maven { url 'https://maven.pkg.github.com/sedrapay/sedracheck-android' }
+        maven {
+            url 'https://maven.pkg.github.com/sedrapay/sedracheck-android'
+            credentials {
+                username properties.getProperty('githubUsername')
+                password properties.getProperty('githubAccessToken')
+            }
+        }
         flatDir {
             dirs 'libs'
         }
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:7.0.4"
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10'
+        classpath "com.android.tools.build:gradle:7.2.2"
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.20'
 
         def nav_version = "2.3.5"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
